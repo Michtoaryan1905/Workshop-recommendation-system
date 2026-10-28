@@ -1,0 +1,950 @@
+{
+ "info": {
+  "name": "Workshop Recommendation System",
+  "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+ },
+ "variable": [
+  {
+   "key": "baseUrl",
+   "value": "http://localhost:5000"
+  },
+  {
+   "key": "mlUrl",
+   "value": "http://localhost:8000"
+  },
+  {
+   "key": "token",
+   "value": ""
+  }
+ ],
+ "item": [
+  {
+   "name": "Auth",
+   "item": [
+    {
+     "name": "Register student",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/auth/register",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "auth",
+        "register"
+       ]
+      },
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"name\": \"Demo Student\",\n  \"email\": \"demo@wrs.com\",\n  \"password\": \"Demo@1234\",\n  \"skills\": [\n    \"Python\",\n    \"SQL\"\n  ],\n  \"interests\": [\n    \"Data Science\"\n  ],\n  \"skill_level\": \"Beginner\",\n  \"preferred_location\": \"Mumbai\"\n}"
+      }
+     },
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "type": "text/javascript",
+        "exec": [
+         "pm.environment.set('token', pm.response.json().token);"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "name": "Login student (Aryan)",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/auth/login",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "auth",
+        "login"
+       ]
+      },
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"email\": \"aryan@wrs.com\",\n  \"password\": \"Student@123\"\n}"
+      }
+     },
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "type": "text/javascript",
+        "exec": [
+         "pm.environment.set('token', pm.response.json().token);"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "name": "Login organizer",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/auth/login",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "auth",
+        "login"
+       ]
+      },
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"email\": \"org1@wrs.com\",\n  \"password\": \"Organizer@123\"\n}"
+      }
+     },
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "type": "text/javascript",
+        "exec": [
+         "pm.environment.set('token', pm.response.json().token);"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "name": "Login admin",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/auth/login",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "auth",
+        "login"
+       ]
+      },
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"email\": \"admin@wrs.com\",\n  \"password\": \"Admin@123\"\n}"
+      }
+     },
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "type": "text/javascript",
+        "exec": [
+         "pm.environment.set('token', pm.response.json().token);"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "name": "Me",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/auth/me",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "auth",
+        "me"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "Student",
+   "item": [
+    {
+     "name": "Get profile",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/users/profile",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "users",
+        "profile"
+       ]
+      }
+     }
+    },
+    {
+     "name": "Update profile",
+     "request": {
+      "method": "PUT",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/users/profile",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "users",
+        "profile"
+       ]
+      },
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"skills\": [\n    \"Python\",\n    \"HTML\",\n    \"SQL\"\n  ],\n  \"interests\": [\n    \"Data Science\",\n    \"AI\"\n  ],\n  \"skill_level\": \"Beginner\",\n  \"career_goal\": \"Become a data scientist\",\n  \"preferred_location\": \"Mumbai\"\n}"
+      }
+     }
+    },
+    {
+     "name": "Natural-language search",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/workshops?q=I want a beginner Python workshop for data science",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "workshops?q=I want a beginner Python workshop for data science"
+       ]
+      }
+     }
+    },
+    {
+     "name": "Filter search",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/workshops?category=Data Science&level=Beginner&mode=Offline&maxFee=600",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "workshops?category=Data Science&level=Beginner&mode=Offline&maxFee=600"
+       ]
+      }
+     }
+    },
+    {
+     "name": "Workshop detail",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/workshops/9",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "workshops",
+        "9"
+       ]
+      }
+     }
+    },
+    {
+     "name": "Recommendations",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/recommendations",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "recommendations"
+       ]
+      }
+     }
+    },
+    {
+     "name": "Recommendation history",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/recommendations/history",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "recommendations",
+        "history"
+       ]
+      }
+     }
+    },
+    {
+     "name": "Register for workshop",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/workshops/9/register",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "workshops",
+        "9",
+        "register"
+       ]
+      }
+     }
+    },
+    {
+     "name": "Submit review",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/workshops/1/reviews",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "workshops",
+        "1",
+        "reviews"
+       ]
+      },
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"rating\": 5,\n  \"comment\": \"The instructor explained Python very clearly. The workshop was excellent.\"\n}"
+      }
+     }
+    },
+    {
+     "name": "Track event",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/events",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "events"
+       ]
+      },
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"event_type\": \"view_workshop\",\n  \"workshop_id\": 9\n}"
+      }
+     }
+    },
+    {
+     "name": "My history",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/users/history",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "users",
+        "history"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "Organizer",
+   "item": [
+    {
+     "name": "Create workshop",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/workshops",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "workshops"
+       ]
+      },
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"title\": \"Intro to Pandas\",\n  \"description\": \"Learn data wrangling with pandas and Python.\",\n  \"category\": \"Data Science\",\n  \"skills\": \"Python, Pandas\",\n  \"difficulty\": \"Beginner\",\n  \"instructor\": \"A. Teacher\",\n  \"event_date\": \"2027-01-15\",\n  \"start_time\": \"10:00\",\n  \"end_time\": \"13:00\",\n  \"mode\": \"Online\",\n  \"capacity\": 40,\n  \"fee\": 0\n}"
+      }
+     }
+    },
+    {
+     "name": "My workshops",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/organizer/workshops",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "organizer",
+        "workshops"
+       ]
+      }
+     }
+    },
+    {
+     "name": "Registrations",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/organizer/workshops/1/registrations",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "organizer",
+        "workshops",
+        "1",
+        "registrations"
+       ]
+      }
+     }
+    },
+    {
+     "name": "Analytics",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/organizer/analytics",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "organizer",
+        "analytics"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "Admin",
+   "item": [
+    {
+     "name": "Analytics",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/admin/analytics",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "admin",
+        "analytics"
+       ]
+      }
+     }
+    },
+    {
+     "name": "A/B test",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/admin/abtest",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "admin",
+        "abtest"
+       ]
+      }
+     }
+    },
+    {
+     "name": "Clusters",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/admin/clusters?k=4",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "admin",
+        "clusters?k=4"
+       ]
+      }
+     }
+    },
+    {
+     "name": "Users",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/admin/users",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "admin",
+        "users"
+       ]
+      }
+     }
+    },
+    {
+     "name": "Approve workshop",
+     "request": {
+      "method": "PATCH",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/admin/workshops/33/status",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "admin",
+        "workshops",
+        "33",
+        "status"
+       ]
+      },
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"status\": \"approved\"\n}"
+      }
+     }
+    },
+    {
+     "name": "Reports",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/admin/reports",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "admin",
+        "reports"
+       ]
+      }
+     }
+    },
+    {
+     "name": "Audit log",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/admin/audit",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "admin",
+        "audit"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "ML service (FastAPI)",
+   "item": [
+    {
+     "name": "Extract keywords",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{mlUrl}}/api/ml/extract-keywords",
+       "host": [
+        "{{mlUrl}}"
+       ],
+       "path": [
+        "api",
+        "ml",
+        "extract-keywords"
+       ]
+      },
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"text\": \"Hands-on Python workshop covering pandas, SQL, machine learning and AWS deployment with Docker.\",\n  \"top_n\": 8,\n  \"show_pipeline\": true\n}"
+      }
+     }
+    },
+    {
+     "name": "Analyze query",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{mlUrl}}/api/ml/analyze-query",
+       "host": [
+        "{{mlUrl}}"
+       ],
+       "path": [
+        "api",
+        "ml",
+        "analyze-query"
+       ]
+      },
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"query\": \"I want a beginner Python workshop for data science.\"\n}"
+      }
+     }
+    },
+    {
+     "name": "Sentiment",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Authorization",
+        "value": "Bearer {{token}}"
+       }
+      ],
+      "url": {
+       "raw": "{{mlUrl}}/api/ml/sentiment",
+       "host": [
+        "{{mlUrl}}"
+       ],
+       "path": [
+        "api",
+        "ml",
+        "sentiment"
+       ]
+      },
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"text\": \"The instructor explained Python very clearly. The workshop was excellent.\"\n}"
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

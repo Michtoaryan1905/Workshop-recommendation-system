@@ -1,0 +1,5 @@
+body { background: #f5f7fb; }
+.score-bar { height: 10px; border-radius: 6px; }
+.chip { display: inline-block; background: #e8eefc; color: #234; border-radius: 14px; padding: 2px 10px; margin: 2px; font-size: .8rem; }
+.card-hover:hover { box-shadow: 0 4px 14px rgba(0,0,0,.12); cursor: pointer; }
+.reason { font-size: .9rem; }
